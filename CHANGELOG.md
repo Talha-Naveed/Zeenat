@@ -2,6 +2,13 @@
 
 All notable changes follow [Semantic Versioning](https://semver.org/).
 
+## 0.2.1 - 2026-08-25
+
+### Changed
+
+- Updated the npm package author metadata to Talha.
+- Expanded npm discovery keywords for website, holiday, and seasonal decorations.
+
 ## 0.2.0 - 2026-08-25
 
 ### Added
