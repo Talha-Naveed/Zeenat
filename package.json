@@ -1,0 +1,200 @@
+{
+  "name": "zeenat",
+  "version": "0.2.0",
+  "description": "Zeenat.js — Adorn the web with tasteful, occasion-aware decorations.",
+  "license": "MIT",
+  "author": "Zeenat.js contributors",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "docs",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla/index.d.ts",
+      "import": "./dist/vanilla/index.js",
+      "require": "./dist/vanilla/index.cjs"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.cjs"
+    },
+    "./effects": {
+      "types": "./dist/effects/index.d.ts",
+      "import": "./dist/effects/index.js",
+      "require": "./dist/effects/index.cjs"
+    },
+    "./effects/aircraft": {
+      "types": "./dist/effects/aircraft.d.ts",
+      "import": "./dist/effects/aircraft.js",
+      "require": "./dist/effects/aircraft.cjs"
+    },
+    "./effects/bunting": {
+      "types": "./dist/effects/bunting.d.ts",
+      "import": "./dist/effects/bunting.js",
+      "require": "./dist/effects/bunting.cjs"
+    },
+    "./effects/falling-leaves": {
+      "types": "./dist/effects/falling-leaves.d.ts",
+      "import": "./dist/effects/falling-leaves.js",
+      "require": "./dist/effects/falling-leaves.cjs"
+    },
+    "./effects/fireworks": {
+      "types": "./dist/effects/fireworks.d.ts",
+      "import": "./dist/effects/fireworks.js",
+      "require": "./dist/effects/fireworks.cjs"
+    },
+    "./effects/lanterns": {
+      "types": "./dist/effects/lanterns.d.ts",
+      "import": "./dist/effects/lanterns.js",
+      "require": "./dist/effects/lanterns.cjs"
+    },
+    "./effects/petals": {
+      "types": "./dist/effects/petals.d.ts",
+      "import": "./dist/effects/petals.js",
+      "require": "./dist/effects/petals.cjs"
+    },
+    "./effects/snow": {
+      "types": "./dist/effects/snow.d.ts",
+      "import": "./dist/effects/snow.js",
+      "require": "./dist/effects/snow.cjs"
+    },
+    "./effects/sparkles": {
+      "types": "./dist/effects/sparkles.d.ts",
+      "import": "./dist/effects/sparkles.js",
+      "require": "./dist/effects/sparkles.cjs"
+    },
+    "./effects/string-lights": {
+      "types": "./dist/effects/string-lights.d.ts",
+      "import": "./dist/effects/string-lights.js",
+      "require": "./dist/effects/string-lights.cjs"
+    },
+    "./presets": {
+      "types": "./dist/presets/index.d.ts",
+      "import": "./dist/presets/index.js",
+      "require": "./dist/presets/index.cjs"
+    },
+    "./presets/autumn": {
+      "types": "./dist/presets/autumn.d.ts",
+      "import": "./dist/presets/autumn.js",
+      "require": "./dist/presets/autumn.cjs"
+    },
+    "./presets/festive-lights": {
+      "types": "./dist/presets/festive-lights.d.ts",
+      "import": "./dist/presets/festive-lights.js",
+      "require": "./dist/presets/festive-lights.cjs"
+    },
+    "./presets/pakistan-defence-day": {
+      "types": "./dist/presets/pakistan-defence-day.d.ts",
+      "import": "./dist/presets/pakistan-defence-day.js",
+      "require": "./dist/presets/pakistan-defence-day.cjs"
+    },
+    "./presets/spring": {
+      "types": "./dist/presets/spring.d.ts",
+      "import": "./dist/presets/spring.js",
+      "require": "./dist/presets/spring.cjs"
+    },
+    "./presets/us-independence-day": {
+      "types": "./dist/presets/us-independence-day.d.ts",
+      "import": "./dist/presets/us-independence-day.js",
+      "require": "./dist/presets/us-independence-day.cjs"
+    },
+    "./presets/winter": {
+      "types": "./dist/presets/winter.d.ts",
+      "import": "./dist/presets/winter.js",
+      "require": "./dist/presets/winter.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "npm run build:react && npm run build:subpaths",
+    "build:playground": "vite build --config playground/vite.config.ts",
+    "build:examples": "npm run build:example:react && npm run build:example:vanilla && npm run build:example:next",
+    "build:example:react": "vite build --config examples/react/vite.config.ts",
+    "build:example:vanilla": "vite build --config examples/vanilla/vite.config.ts",
+    "build:example:next": "next build examples/nextjs",
+    "build:react": "tsup --config tsup.react.config.ts",
+    "build:subpaths": "tsup --config tsup.config.ts",
+    "check:size": "node scripts/check-bundle-size.mjs",
+    "dev": "vite --config playground/vite.config.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser:serve": "vite --config tests/browser/vite.config.ts",
+    "test:browser": "npm run build && npm run test:browser:built",
+    "test:browser:built": "playwright test --grep-invert @visual",
+    "test:visual": "npm run build && playwright test visual.spec.ts --project=chromium",
+    "test:visual:update": "npm run build && playwright test visual.spec.ts --project=chromium --update-snapshots",
+    "test:tree-shaking": "node scripts/verify-tree-shaking.mjs",
+    "typecheck": "tsc --noEmit",
+    "validate:preset": "npm run build && node scripts/validate-presets.mjs",
+    "validate:preset:built": "node scripts/validate-presets.mjs",
+    "verify:package": "node scripts/verify-package.mjs",
+    "verify:pack": "npm pack --dry-run",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run verify:package && npm run validate:preset:built && npm run test:tree-shaking && npm run check:size && npm run build:playground && npm run build:examples && npm run test:browser:built"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "overrides": {
+    "esbuild": "$esbuild"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.11",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.2",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.9.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^26.1.0",
+    "next": "^16.3.2",
+    "prettier": "^3.6.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.41.0",
+    "vite": "^7.1.3",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "celebration",
+    "decorations",
+    "effects",
+    "holidays",
+    "animation",
+    "nextjs",
+    "react",
+    "ssr",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  }
+}

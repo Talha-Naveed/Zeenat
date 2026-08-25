@@ -1,0 +1,21 @@
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  color: #16372e;
+  background: #f5f8f6;
+  font:
+    1rem/1.6 system-ui,
+    sans-serif;
+}
+
+main {
+  width: min(720px, calc(100% - 32px));
+}

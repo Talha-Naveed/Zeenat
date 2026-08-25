@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "paths": {
+      "zeenat": ["src/index.ts"],
+      "zeenat/core": ["src/core/index.ts"],
+      "zeenat/effects": ["src/effects/index.ts"],
+      "zeenat/effects/*": ["src/effects/*"],
+      "zeenat/presets": ["src/presets/index.ts"],
+      "zeenat/presets/*": ["src/presets/*"],
+      "zeenat/vanilla": ["src/vanilla/index.ts"]
+    },
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "types": ["vitest/globals", "node"]
+  },
+  "include": ["src", "tests", "playground", "*.ts"],
+  "exclude": ["dist", "node_modules"]
+}

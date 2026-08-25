@@ -1,0 +1,20 @@
+body {
+  display: grid;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  place-items: center;
+  color: #18244b;
+  background: #f7f8fc;
+  font:
+    1rem/1.6 system-ui,
+    sans-serif;
+}
+
+main {
+  text-align: center;
+}
+
+button {
+  padding: 10px 16px;
+}

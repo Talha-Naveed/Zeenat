@@ -1,0 +1,10 @@
+dist
+coverage
+node_modules
+package-lock.json
+playground-dist
+examples/dist-react
+examples/dist-vanilla
+examples/nextjs/.next
+test-results
+playwright-report
