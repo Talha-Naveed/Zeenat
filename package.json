@@ -1,9 +1,12 @@
 {
   "name": "zeenat",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Zeenat.js — Adorn the web with tasteful, occasion-aware decorations.",
   "license": "MIT",
-  "author": "Zeenat.js contributors",
+  "author": {
+    "name": "Talha",
+    "url": "https://github.com/Talha-Naveed"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -184,15 +187,20 @@
     "vitest": "^3.2.4"
   },
   "keywords": [
+    "zeenat",
+    "website-decoration",
+    "holiday-decoration",
     "celebration",
-    "decorations",
-    "effects",
-    "holidays",
+    "seasonal-effects",
+    "web-effects",
     "animation",
-    "nextjs",
+    "particles",
     "react",
+    "nextjs",
+    "vanilla-js",
+    "typescript",
     "ssr",
-    "typescript"
+    "accessible"
   ],
   "engines": {
     "node": ">=20.19"
