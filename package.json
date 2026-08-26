@@ -7,6 +7,13 @@
     "name": "Talha",
     "url": "https://github.com/Talha-Naveed"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Talha-Naveed/Zeenat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Talha-Naveed/Zeenat/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [
