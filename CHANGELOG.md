@@ -2,6 +2,43 @@
 
 All notable changes follow [Semantic Versioning](https://semver.org/).
 
+## 0.3.0 - Unreleased
+
+### Added
+
+- Occasion-independent `preset="bunting"` with `flag="pakistan"` or country codes.
+- A locally packaged 249-entry country/territory catalog (excluding IL, plus XK),
+  lazy SVG geometry, `zeenat/flags`, and `createBuntingPreset`.
+- Horizontal and vertical flag orientation in the primitive, simple React/vanilla
+  API, national preset factories, and playground controls.
+
+- Reusable Pakistani and United States flag designs for responsive flag bunting.
+- Public `BuntingFlagDesign` and `BuntingFlagRenderContext` contracts for custom
+  flag artwork.
+- A `pakistan-independence-day` preset for 14 August with Pakistani flag bunting
+  and restrained green-and-white celebration effects.
+
+### Changed
+
+- Defence Day now uses original, correctly oriented fighter jets flying right to left.
+- Documentation homepage is https://zeenat.xinuty.com.
+- ESM and CJS builds split optional flag geometry into on-demand chunks; flag artwork
+  licensing and a reproducible development-only generator are included.
+
+- Pakistan Defence Day and US Independence Day now use country-flag bunting;
+  classic pennant and swallowtail bunting remain available for custom scenes.
+
+### Fixed
+
+- Aircraft flight endpoints now follow same-breakpoint viewport resizing.
+- Late flag loads cannot repopulate destroyed or replaced scenes; failed chunk loads
+  are handled without an unhandled rejection.
+
+- Bunting items now sit directly on the quadratic cord instead of using an
+  incorrect doubled sag calculation.
+- Bunting recalculates in viewport pixels on resize, keeps each item tangent to
+  the cord, and preserves country-flag proportions across responsive screens.
+
 ## 0.2.1 - 2026-08-25
 
 ### Changed

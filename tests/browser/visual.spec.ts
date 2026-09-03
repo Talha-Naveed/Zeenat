@@ -2,6 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 const scenes = [
   "pakistan-defence-day",
+  "pakistan-independence-day",
   "us-independence-day",
   "snow",
   "petals",
@@ -9,6 +10,29 @@ const scenes = [
   "string-lights",
   "falling-leaves",
 ] as const;
+
+for (const [flag, orientation, width] of [
+  ["pakistan", "vertical", 390],
+  ["japan", "horizontal", 1440],
+  ["palestine", "vertical", 1440],
+] as const) {
+  test(`@visual bunting ${flag} ${orientation}`, async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(browserName !== "chromium", "Visual baselines use Chromium.");
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(
+      `/?scene=bunting&flag=${flag}&orientation=${orientation}&motion=reduced`,
+    );
+    await expect(
+      page.locator("symbol[data-zeenat-flag-status='ready']"),
+    ).toHaveCount(1);
+    await expect(page).toHaveScreenshot(`bunting-${flag}-${orientation}.png`, {
+      animations: "allow",
+    });
+  });
+}
 
 async function freezeAnimations(page: Page) {
   await page.evaluate(() => {

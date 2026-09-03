@@ -12,6 +12,7 @@ import {
 describe("preset definitions", () => {
   it("resolves all built-in preset ids", () => {
     expect(resolvePreset("pakistan-defence-day").effects).toHaveLength(3);
+    expect(resolvePreset("pakistan-independence-day").effects).toHaveLength(3);
     expect(resolvePreset("us-independence-day").effects).toHaveLength(3);
     expect(resolvePreset("winter").effects).toHaveLength(3);
     expect(resolvePreset("autumn").effects).toHaveLength(2);

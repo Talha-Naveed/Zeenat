@@ -67,7 +67,9 @@ export interface ZeenatPreset<Id extends string = string> {
 }
 
 export type BuiltInPresetName =
+  | "bunting"
   | "pakistan-defence-day"
+  | "pakistan-independence-day"
   | "us-independence-day"
   | "winter"
   | "autumn"
@@ -78,6 +80,10 @@ export type ZeenatPresetInput = BuiltInPresetName | ZeenatPreset;
 
 export interface ZeenatOptions {
   preset: ZeenatPresetInput;
+  /** Required by the bunting preset. Use a country slug or two-letter code. */
+  flag?: CountryFlag;
+  /** Supported by bunting and the three national occasion presets. */
+  orientation?: FlagOrientation;
   intensity?: ZeenatIntensity;
   duration?: ZeenatDuration;
   zIndex?: number;
@@ -155,3 +161,5 @@ export interface PresetValidationResult {
   readonly valid: boolean;
   readonly issues: readonly PresetValidationIssue[];
 }
+import type { FlagOrientation } from "../effects/bunting";
+import type { CountryFlag } from "../flags";

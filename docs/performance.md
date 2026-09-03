@@ -7,9 +7,18 @@ outside React and normally stay on the compositor.
 ## Automated budgets
 
 `npm run check:size` bundles and minifies the React, core, vanilla, aggregate, and
-individual effect entries, then enforces gzip limits. Current ceilings are 18 KB for
-the React entry, 16 KB for vanilla, 14 KB for aggregate catalogs, 4.5 KB for core,
+individual effect entries, then enforces gzip limits across the complete initial
+static dependency graph. Current ceilings are 20 KB for
+the React entry, 19 KB for vanilla, 14 KB for aggregate catalogs, 4.5 KB for core,
 and 4.5 KB for each individual effect.
+
+v0.3 raises the React/vanilla ceilings from 18/16 KB to account for country names,
+aliases, and orientation/lifecycle handling. The optional flag loader table and
+247 country geometry modules are code-split; each optional chunk has an independent
+8 KB gzip ceiling. The size check prints both initial bytes and optional chunk count.
+Pakistan/US original geometry stays inline. A browser test checks that selecting
+Japan loads Japan's local artwork, not all countries. No running flag scene requires
+third-party image traffic or additional animation frameworks.
 
 The Chromium performance test enforces a representative scene budget of at most
 180 DOM nodes, 100 animations, 10 timers, and two RAF loops. It repeatedly

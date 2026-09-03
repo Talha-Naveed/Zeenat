@@ -5,6 +5,40 @@ import { defineEffect, definePreset } from "../src/core/definitions";
 import { Zeenat, type ZeenatHandle } from "../src/react";
 
 describe("React adapter", () => {
+  it("updates flag and orientation props through the shared engine", () => {
+    const result = render(
+      <Zeenat
+        preset="bunting"
+        flag="pakistan"
+        orientation="horizontal"
+        motion="reduced"
+      />,
+    );
+    expect(
+      result.container.querySelector("[data-zeenat-flag='pakistan']"),
+    ).not.toBeNull();
+    result.rerender(
+      <Zeenat
+        preset="bunting"
+        flag="US"
+        orientation="vertical"
+        motion="reduced"
+      />,
+    );
+    expect(
+      result.container.querySelector("[data-zeenat-flag='pakistan']"),
+    ).toBeNull();
+    expect(
+      result.container.querySelector(
+        "[data-zeenat-flag-orientation='vertical']",
+      ),
+    ).not.toBeNull();
+    expect(
+      result.container.querySelector("[data-zeenat-flag='united-states']"),
+    ).not.toBeNull();
+    result.unmount();
+    expect(document.querySelector("[data-zeenat-root]")).toBeNull();
+  });
   it("mounts through the shared engine and cleans up on React unmount", () => {
     const cleanup = vi.fn();
     const mount = vi.fn(() => cleanup);

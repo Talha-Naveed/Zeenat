@@ -40,6 +40,45 @@ const quietWinter = createWinterPreset({
 Simple consumers still use `<Zeenat preset="winter" />`; advanced consumers pass
 the returned preset object.
 
+## Flag bunting
+
+Country flags are reusable artwork passed to the culturally neutral `bunting`
+layout effect. This keeps cord layout, responsive sizing, animation, and cleanup
+separate from occasion-specific artwork:
+
+```ts
+import { definePreset } from "zeenat/core";
+import { bunting, pakistanFlag } from "zeenat/effects/bunting";
+
+const nationalDecoration = definePreset({
+  id: "national-decoration",
+  name: "National decoration",
+  effects: [bunting({ flags: [pakistanFlag], count: 14 })],
+});
+```
+
+Use `unitedStatesFlag` for American flag bunting. Custom artwork implements
+`BuntingFlagDesign` and draws into the normalized SVG symbol supplied by the
+render context. Prefer original geometry, keep DOM complexity bounded, and verify
+the artwork at mobile and desktop widths. Decorative triangle and swallowtail
+bunting remains available through `colors` and `shape`.
+
+`countryFlag("japan")` from `zeenat/flags` supplies catalog artwork. It resolves
+synchronously without browser globals and loads local geometry only on mount.
+Pass `orientation: "vertical"` to `bunting()` for 90° clockwise portrait hanging.
+Country-specific ceremonial vertical variants are not represented.
+
+`BuntingFlagRenderContext` includes `signal`. A design may return a `Promise<void>`;
+after awaiting work it must check `signal.aborted` before adding geometry to its symbol.
+The effect catches rejected renders, marks the symbol `data-zeenat-flag-status="failed"`,
+and reports a console error without breaking other effects. Successful symbols are
+marked `ready`; in-flight ones are `loading`. Use the supplied document and prefix
+internal SVG IDs with `container.id` to avoid collisions between multiple scenes.
+
+`createBuntingPreset({ flag: "PK", orientation: "vertical" })` is available from
+`zeenat/presets/bunting`. The generic preset requires a flag and is resolved separately
+from `builtInPresets`, which contains only ready-to-use occasion/season preset objects.
+
 ## Validation
 
 Build and validate the built-in catalog:

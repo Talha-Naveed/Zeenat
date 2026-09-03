@@ -7,7 +7,10 @@ import {
   type ZeenatIntensity,
   type ZeenatMotionMode,
   type ZeenatPresetInput,
+  type CountryFlag,
+  type FlagOrientation,
 } from "zeenat";
+import { flagCatalog } from "zeenat/flags";
 import {
   aircraft,
   bunting,
@@ -21,7 +24,9 @@ import {
 } from "zeenat/effects";
 
 const PRESET_CHOICES = [
+  ["bunting", "Country flag bunting"],
   ["pakistan-defence-day", "Pakistan Defence Day"],
+  ["pakistan-independence-day", "Pakistan Independence Day"],
   ["us-independence-day", "US Independence Day"],
   ["winter", "Winter"],
   ["autumn", "Autumn"],
@@ -95,6 +100,14 @@ const DEVICE_PREVIEWS = {
 
 export function App() {
   const [choice, setChoice] = useState<DemoChoice>("pakistan-defence-day");
+  const [flag, setFlag] = useState<CountryFlag>("pakistan");
+  const [orientation, setOrientation] = useState<FlagOrientation>("horizontal");
+  const supportsOrientation = [
+    "bunting",
+    "pakistan-defence-day",
+    "pakistan-independence-day",
+    "us-independence-day",
+  ].includes(choice);
   const [intensity, setIntensity] = useState<ZeenatIntensity>("medium");
   const [motion, setMotion] = useState<ZeenatMotionMode>("system");
   const [seed, setSeed] = useState(20260906);
@@ -141,6 +154,8 @@ export function App() {
           key={instance}
           ref={decorationRef}
           preset={preset}
+          {...(choice === "bunting" ? { flag } : {})}
+          {...(supportsOrientation ? { orientation } : {})}
           intensity={intensity}
           motion={motion}
           seed={seed}
@@ -158,7 +173,10 @@ export function App() {
           density, and engine diagnostics without adding playground code to the
           package.
         </p>
-        <code>{`<Zeenat preset="${choice}" />`}</code>
+        <code>{`<Zeenat preset="${choice}"${choice === "bunting" ? ` flag="${flag}"` : ""}${supportsOrientation ? ` orientation="${orientation}"` : ""} />`}</code>
+        <p>
+          <a href="https://zeenat.xinuty.com">Documentation</a>
+        </p>
       </section>
 
       <div className="workspace">
@@ -185,6 +203,38 @@ export function App() {
               </optgroup>
             </select>
           </label>
+
+          {choice === "bunting" ? (
+            <label>
+              <span>Country flag</span>
+              <select
+                value={flag}
+                onChange={(event) => setFlag(event.target.value as CountryFlag)}
+              >
+                {[...flagCatalog]
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((entry) => (
+                    <option key={entry.code} value={entry.slug}>
+                      {entry.name} ({entry.code})
+                    </option>
+                  ))}
+              </select>
+            </label>
+          ) : null}
+          {supportsOrientation ? (
+            <label>
+              <span>Flag orientation</span>
+              <select
+                value={orientation}
+                onChange={(event) =>
+                  setOrientation(event.target.value as FlagOrientation)
+                }
+              >
+                <option value="horizontal">Horizontal (landscape)</option>
+                <option value="vertical">Vertical (portrait)</option>
+              </select>
+            </label>
+          ) : null}
 
           <fieldset>
             <legend>Intensity</legend>
