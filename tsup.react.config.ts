@@ -7,7 +7,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   minify: false,
-  splitting: false,
+  splitting: true,
   // tsup's optional Rollup pass strips module directives. Esbuild still performs
   // dead-code elimination, while disabling that pass preserves the Next.js boundary.
   treeshake: false,

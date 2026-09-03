@@ -77,7 +77,7 @@ export class SceneEngine {
     if (!view) throw new ZeenatError("Zeenat requires a browser document.");
     this.document = options.document;
     this.view = view;
-    this.preset = resolvePreset(options.preset);
+    this.preset = resolvePreset(options.preset, options);
     this.suppliedRoot = options.root;
     this.mountTarget = options.mountTarget;
     this.className = options.className;

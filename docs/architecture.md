@@ -55,24 +55,37 @@ small-screen breakpoint rebuilds the scene so count-based effects adapt.
 
 ## Public boundaries
 
-| Entry              | Responsibility                                         |
-| ------------------ | ------------------------------------------------------ |
-| `zeenat`           | React component, `ZeenatScene`, core definitions/types |
-| `zeenat/core`      | Framework-neutral authoring and validation contracts   |
-| `zeenat/vanilla`   | Browser controller API without React                   |
-| `zeenat/effects`   | Aggregate neutral effects for bundler tree shaking     |
-| `zeenat/effects/*` | Smallest explicit effect imports                       |
-| `zeenat/presets`   | Aggregate built-in presets and registry                |
-| `zeenat/presets/*` | Individually importable, configurable preset factories |
+| Entry              | Responsibility                                           |
+| ------------------ | -------------------------------------------------------- |
+| `zeenat`           | React component, `ZeenatScene`, core definitions/types   |
+| `zeenat/core`      | Framework-neutral authoring and validation contracts     |
+| `zeenat/vanilla`   | Browser controller API without React                     |
+| `zeenat/effects`   | Aggregate neutral effects for bundler tree shaking       |
+| `zeenat/effects/*` | Smallest explicit effect imports                         |
+| `zeenat/presets`   | Aggregate built-in presets and registry                  |
+| `zeenat/presets/*` | Individually importable, configurable preset factories   |
+| `zeenat/flags`     | Country catalog, name/code resolution, lazy flag designs |
 
 The synchronous string registry stays small for the one-line API. New catalogs can
 ship as explicit imports or future external packages without making preset
 resolution asynchronous.
 
+The configurable `bunting` ID resolves via `createBuntingPreset` and requires `flag`;
+it is not an arbitrary default-country object in `builtInPresets`. Country/territory
+metadata is generated and synchronous. The artwork loader table and each SVG tree
+are separate dynamic imports. The flag design uses the owning effect's abort signal
+before each asynchronous commit. SVG IDs are scoped to the reusable symbol; no
+remote image host, HTML parsing, data URL, or flag runtime dependency is required.
+
+`orientation` belongs to bunting composition, not the engine or a global transform.
+Landscape is unchanged; portrait rotates complete artwork and fits its height within
+the decoration band. The cord's quadratic point/tangent controls the hanging anchor
+independently of orientation and sway.
+
 ## Build decisions
 
 TypeScript source is built with tsup to ESM and CJS, declarations, and sourcemaps.
-Subpath builds split shared chunks; React and React DOM remain peers. ESM is preferred
+React and subpath builds split shared/lazy chunks; React and React DOM remain peers. ESM is preferred
 and `sideEffects: false` enables dead-code elimination. CJS is retained for v0.x
 compatibility and should be reassessed before 1.0.
 

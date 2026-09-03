@@ -2,6 +2,8 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: {
+    "flags/index": "src/flags/index.ts",
+    "presets/bunting": "src/presets/bunting.ts",
     "core/index": "src/core/index.ts",
     "vanilla/index": "src/vanilla/index.ts",
     "effects/index": "src/effects/index.ts",
@@ -18,6 +20,8 @@ export default defineConfig({
     "presets/autumn": "src/presets/autumn.ts",
     "presets/festive-lights": "src/presets/festive-lights.ts",
     "presets/pakistan-defence-day": "src/presets/pakistan-defence-day.ts",
+    "presets/pakistan-independence-day":
+      "src/presets/pakistan-independence-day.ts",
     "presets/spring": "src/presets/spring.ts",
     "presets/us-independence-day": "src/presets/us-independence-day.ts",
     "presets/winter": "src/presets/winter.ts",

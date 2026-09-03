@@ -1,7 +1,18 @@
 export { definePreset } from "../core/definitions";
 export { builtInPresets, resolvePreset } from "./registry";
-export { pakistanDefenceDay } from "./pakistan-defence-day";
-export { usIndependenceDay } from "./us-independence-day";
+export {
+  pakistanDefenceDay,
+  createPakistanDefenceDayPreset,
+} from "./pakistan-defence-day";
+export {
+  pakistanIndependenceDay,
+  createPakistanIndependenceDayPreset,
+} from "./pakistan-independence-day";
+export {
+  usIndependenceDay,
+  createUsIndependenceDayPreset,
+} from "./us-independence-day";
+export { createBuntingPreset, type BuntingPresetOptions } from "./bunting";
 export { autumn, createAutumnPreset, type AutumnPresetOptions } from "./autumn";
 export {
   createFestiveLightsPreset,

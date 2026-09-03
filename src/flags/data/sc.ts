@@ -1,0 +1,14 @@
+// Generated from country-flag-icons 1.6.20 (MIT). See THIRD_PARTY_NOTICES.md.
+import type { FlagNode } from "../render";
+const artwork: FlagNode = [
+  "svg",
+  { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 513 342" },
+  [
+    ["path", { fill: "#FFF", d: "M0 0h513v342H0z" }, []],
+    ["path", { fill: "#F6CA3F", d: "M185.9 0 0 342 368.2 0z" }, []],
+    ["path", { fill: "#007631", d: "M513 224.5 0 342h513z" }, []],
+    ["path", { fill: "#CB262E", d: "M513 0H358.2L0 342l513-224.9z" }, []],
+    ["path", { fill: "#002E69", d: "M0 0v342L185.9 0z" }, []],
+  ],
+];
+export default artwork;

@@ -1,8 +1,9 @@
 {
   "name": "zeenat",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Zeenat.js — Adorn the web with tasteful, occasion-aware decorations.",
   "license": "MIT",
+  "homepage": "https://zeenat.xinuty.com",
   "author": {
     "name": "Talha",
     "url": "https://github.com/Talha-Naveed"
@@ -22,12 +23,23 @@
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
+    "./flags": {
+      "types": "./dist/flags/index.d.ts",
+      "import": "./dist/flags/index.js",
+      "require": "./dist/flags/index.cjs"
+    },
+    "./presets/bunting": {
+      "types": "./dist/presets/bunting.d.ts",
+      "import": "./dist/presets/bunting.js",
+      "require": "./dist/presets/bunting.cjs"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
@@ -113,6 +125,11 @@
       "import": "./dist/presets/pakistan-defence-day.js",
       "require": "./dist/presets/pakistan-defence-day.cjs"
     },
+    "./presets/pakistan-independence-day": {
+      "types": "./dist/presets/pakistan-independence-day.d.ts",
+      "import": "./dist/presets/pakistan-independence-day.js",
+      "require": "./dist/presets/pakistan-independence-day.cjs"
+    },
     "./presets/spring": {
       "types": "./dist/presets/spring.d.ts",
       "import": "./dist/presets/spring.js",
@@ -131,6 +148,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "flags:generate": "node scripts/generate-flags.mjs",
     "build": "npm run build:react && npm run build:subpaths",
     "build:playground": "vite build --config playground/vite.config.ts",
     "build:examples": "npm run build:example:react && npm run build:example:vanilla && npm run build:example:next",
@@ -179,6 +197,7 @@
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.2",
+    "country-flag-icons": "1.6.20",
     "esbuild": "^0.28.2",
     "eslint": "^10.9.0",
     "eslint-plugin-react-hooks": "^7.1.1",

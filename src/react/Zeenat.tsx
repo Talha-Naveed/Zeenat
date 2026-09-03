@@ -30,8 +30,10 @@ export const Zeenat = forwardRef<ZeenatHandle, ZeenatProps>(
       debug,
       duration,
       enabled,
+      flag,
       intensity,
       motion,
+      orientation,
       preset,
       respectReducedMotion,
       seed,
@@ -73,6 +75,8 @@ export const Zeenat = forwardRef<ZeenatHandle, ZeenatProps>(
         document: root.ownerDocument,
         root,
         preset,
+        ...(flag === undefined ? {} : { flag }),
+        ...(orientation === undefined ? {} : { orientation }),
         ...(activeFrom === undefined ? {} : { activeFrom }),
         ...(activeUntil === undefined ? {} : { activeUntil }),
         ...(className === undefined ? {} : { className }),
@@ -97,8 +101,10 @@ export const Zeenat = forwardRef<ZeenatHandle, ZeenatProps>(
       duration,
       debug,
       enabled,
+      flag,
       intensity,
       motion,
+      orientation,
       preset,
       respectReducedMotion,
       seed,
@@ -118,7 +124,10 @@ export const Zeenat = forwardRef<ZeenatHandle, ZeenatProps>(
   },
 );
 
-export interface ZeenatSceneProps extends Omit<ZeenatProps, "preset"> {
+export interface ZeenatSceneProps extends Omit<
+  ZeenatProps,
+  "preset" | "flag" | "orientation"
+> {
   readonly effects: readonly ZeenatEffect[];
   readonly id?: string;
   readonly name?: string;

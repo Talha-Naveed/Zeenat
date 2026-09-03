@@ -9,6 +9,7 @@
     "baseUrl": ".",
     "paths": {
       "zeenat": ["src/index.ts"],
+      "zeenat/flags": ["src/flags/index.ts"],
       "zeenat/core": ["src/core/index.ts"],
       "zeenat/effects": ["src/effects/index.ts"],
       "zeenat/effects/*": ["src/effects/*"],

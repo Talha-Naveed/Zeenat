@@ -6,6 +6,8 @@ export {
   type ZeenatSceneProps,
 } from "./react";
 export { defineEffect, definePreset } from "./core/definitions";
+export type { CountryFlag, CountryFlagCode, CountryFlagName } from "./flags";
+export type { FlagOrientation } from "./effects/bunting";
 export {
   validatePresetCollection,
   validatePresetDefinition,

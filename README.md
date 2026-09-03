@@ -2,6 +2,8 @@
 
 > **Zeenat.js — Adorn the web.**
 
+[Documentation](https://zeenat.xinuty.com) · [GitHub](https://github.com/Talha-Naveed/Zeenat)
+
 Zeenat (زینت) means adornment, decoration, or beautification. Zeenat.js adds a
 tasteful, occasion-aware decorative layer to an existing website with one component
 or function call. It is a TypeScript-first effect engine—not another bag of confetti
@@ -84,31 +86,56 @@ Importing the entry during SSR is safe; call `zeenat()` only in a browser.
 
 ## Built-in presets
 
-| Preset                 | Composition                                           | Reduced-motion result             |
-| ---------------------- | ----------------------------------------------------- | --------------------------------- |
-| `pakistan-defence-day` | Green/white bunting, subtle accents, generic aircraft | Static bunting and sparse accents |
-| `us-independence-day`  | Red/white/blue bunting, stars, modest fireworks       | Static bunting and sparse stars   |
-| `winter`               | Snow, cool sparkles, warm string lights               | Sparse static snow and lights     |
-| `autumn`               | Falling leaves and amber accents                      | Sparse static leaves and accents  |
-| `spring`               | Drifting petals and soft sparkles                     | Sparse static petals and accents  |
-| `festive-lights`       | Generic lanterns, string lights, gold accents         | Static lanterns and lights        |
+For just country flags, without an occasion or extra effects:
 
-All geometry is original CSS/SVG. There are no third-party images or remote asset
-requests.
+```tsx
+<Zeenat preset="bunting" flag="pakistan" />
+<Zeenat preset="bunting" flag="pakistan" orientation="vertical" />
+<Zeenat preset="bunting" flag="JP" orientation="horizontal" />
+```
+
+Use an English country slug or two-letter code. The [249-entry catalog](docs/flags-catalog.md)
+contains all ISO countries/territories except Israel, plus Kosovo. `horizontal`
+is the default; `vertical` rotates the artwork 90° clockwise, preserving proportions.
+This is decorative portrait hanging, not a country-specific ceremonial vertical variant.
+Existing occasion IDs remain supported; all three national presets also accept `orientation`.
+
+The same options work in vanilla:
+
+```js
+zeenat({ preset: "bunting", flag: "pakistan", orientation: "vertical" });
+```
+
+| Preset                      | Composition                                                        | Reduced-motion result             |
+| --------------------------- | ------------------------------------------------------------------ | --------------------------------- |
+| `bunting`                   | Country flag bunting; requires `flag`                              | Static flag bunting               |
+| `pakistan-defence-day`      | Pakistani flag bunting, subtle accents, right-to-left fighter jets | Static bunting and sparse accents |
+| `pakistan-independence-day` | Pakistani flag bunting, green/white accents, modest fireworks      | Static bunting and sparse accents |
+| `us-independence-day`       | American flag bunting, stars, modest fireworks                     | Static bunting and sparse stars   |
+| `winter`                    | Snow, cool sparkles, warm string lights                            | Sparse static snow and lights     |
+| `autumn`                    | Falling leaves and amber accents                                   | Sparse static leaves and accents  |
+| `spring`                    | Drifting petals and soft sparkles                                  | Sparse static petals and accents  |
+| `festive-lights`            | Generic lanterns, string lights, gold accents                      | Static lanterns and lights        |
+
+Effects and Pakistan/US flag geometry are original CSS/SVG. Other flag artwork is
+adapted from the MIT-licensed [country-flag-icons](https://github.com/catamphetamine/country-flag-icons)
+collection and packaged locally; there are no third-party runtime image requests.
+These are simplified 3:2 decorative icons, not exact official construction drawings.
+See [asset attribution](THIRD_PARTY_NOTICES.md).
 
 ## Reusable effects
 
-| Factory         | Strategy                                         | Default layer |
-| --------------- | ------------------------------------------------ | ------------- |
-| `bunting`       | Responsive SVG cable and pennants                | `top`         |
-| `aircraft`      | Original SVG silhouette with WAAPI flyover       | `foreground`  |
-| `sparkles`      | Bounded CSS geometry with WAAPI shimmer          | `ambient`     |
-| `fireworks`     | Small DOM bursts with transform animation        | `background`  |
-| `snow`          | Bounded CSS flakes with fall/drift animation     | `ambient`     |
-| `petals`        | CSS petal forms with drift and rotation          | `ambient`     |
-| `fallingLeaves` | CSS leaf forms with vein detail                  | `ambient`     |
-| `lanterns`      | Generic inline SVG lanterns with optional sway   | `top`         |
-| `stringLights`  | Responsive SVG cable/bulbs with optional twinkle | `top`         |
+| Factory         | Strategy                                            | Default layer |
+| --------------- | --------------------------------------------------- | ------------- |
+| `bunting`       | Responsive SVG cable with country flags or pennants | `top`         |
+| `aircraft`      | Original SVG silhouette with WAAPI flyover          | `foreground`  |
+| `sparkles`      | Bounded CSS geometry with WAAPI shimmer             | `ambient`     |
+| `fireworks`     | Small DOM bursts with transform animation           | `background`  |
+| `snow`          | Bounded CSS flakes with fall/drift animation        | `ambient`     |
+| `petals`        | CSS petal forms with drift and rotation             | `ambient`     |
+| `fallingLeaves` | CSS leaf forms with vein detail                     | `ambient`     |
+| `lanterns`      | Generic inline SVG lanterns with optional sway      | `top`         |
+| `stringLights`  | Responsive SVG cable/bulbs with optional twinkle    | `top`         |
 
 Use the aggregate entry or the smallest explicit subpath:
 
@@ -118,11 +145,50 @@ import { snow } from "zeenat/effects";
 import { snow } from "zeenat/effects/snow";
 ```
 
+### Country-flag and classic bunting
+
+National presets use reusable flag artwork by default. The cord, flag anchors,
+and proportions recalculate with the viewport:
+
+```ts
+import { bunting, pakistanFlag } from "zeenat/effects/bunting";
+
+const flags = bunting({
+  flags: [pakistanFlag],
+  count: 14,
+});
+```
+
+`unitedStatesFlag` is also included. For any catalog flag:
+
+```ts
+import { countryFlag, flagCatalog } from "zeenat/flags";
+
+const internationalBunting = bunting({
+  flags: [countryFlag("pakistan"), countryFlag("japan")],
+  orientation: "vertical",
+});
+// flagCatalog supplies { code, name, slug } entries for your own country picker.
+```
+
+Community effects can implement the exported
+`BuntingFlagDesign` contract to supply original SVG flag artwork. The earlier
+decorative mode remains available:
+
+```ts
+const pennants = bunting({
+  colors: ["#01411c", "#ffffff"],
+  shape: "pennant", // or "swallowtail"
+});
+```
+
 ## Configuration
 
 ```ts
 type ZeenatProps = {
   preset: BuiltInPresetName | ZeenatPreset;
+  flag?: CountryFlag; // required for preset="bunting"; invalid on other presets
+  orientation?: "horizontal" | "vertical"; // horizontal; flag-bunting presets only
   intensity?: "low" | "medium" | "high"; // medium
   duration?: number | "infinite"; // infinite
   zIndex?: number; // 1000
@@ -238,6 +304,12 @@ occasion content in the host application.
   automated consumer fixtures.
 
 Using a built-in string ID includes the intentionally small synchronous registry.
+The country metadata is synchronous, but the artwork index and selected flag geometry
+are lazy-loaded local JS chunks on mount. Pakistan and US artwork is inline. Disabled
+or server-rendered scenes request no flag chunks. Keep the whole generated `dist`
+directory when deploying; a bundler may emit many small optional assets, but browsers
+load only the requested country's artwork. Bundlers without code splitting may inline
+these assets; prefer ESM with splitting enabled.
 Applications building larger catalogs should import preset objects individually.
 See [performance details and the canvas assessment](docs/performance.md).
 
@@ -264,7 +336,8 @@ npm run dev
 npm run check
 ```
 
-The unpublished playground includes all presets/effects, intensity, seed, motion,
+The unpublished playground includes all presets/effects, a country picker, horizontal/
+vertical flag controls, intensity, seed, motion,
 device-window requests, pause/resume/restart/destroy/remount, and live diagnostics.
 
 `npm run check` covers format, lint, strict TypeScript, unit/SSR tests, build and
@@ -278,6 +351,10 @@ tsup produces ESM, CJS, declarations, sourcemaps, and explicit split subpaths. I
 chosen for predictable multi-entry library output and declaration bundling; Vite is
 reserved for the playground/examples. The main bundle preserves `"use client"` for
 Next.js while framework-neutral entries do not carry that directive.
+
+`country-flag-icons@1.6.20` is a pinned **development-only** asset source. Generated
+SVG geometry and its license are checked in. `npm run flags:generate` regenerates
+the catalog, typed lazy modules, and catalog docs; it does not run during installation.
 
 ## Contributing
 

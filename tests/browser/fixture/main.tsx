@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { createRef, useEffect, useMemo, useState, type RefObject } from "react";
 import { Zeenat, ZeenatScene, type ZeenatHandle } from "zeenat";
+import type { CountryFlag, FlagOrientation } from "zeenat";
 import {
   aircraft,
   bunting,
@@ -20,7 +21,7 @@ import type {
 } from "zeenat/core";
 
 const effects: Readonly<Record<string, ZeenatEffect>> = {
-  bunting: bunting({ colors: ["#0f766e", "#f8fafc", "#f59e0b"] }),
+  "classic-bunting": bunting({ colors: ["#0f766e", "#f8fafc", "#f59e0b"] }),
   aircraft: aircraft(),
   sparkles: sparkles({
     colors: ["#f59e0b", "#38bdf8", "#ffffff"],
@@ -56,11 +57,15 @@ function Decoration({
   motion,
   decorationRef,
   instanceKey,
+  flag,
+  orientation,
 }: {
   readonly scene: string;
   readonly motion: ZeenatMotionMode;
   readonly decorationRef: RefObject<ZeenatHandle | null>;
   readonly instanceKey: number;
+  readonly flag: CountryFlag;
+  readonly orientation: FlagOrientation;
 }) {
   const common = {
     ref: decorationRef,
@@ -78,7 +83,20 @@ function Decoration({
       id={`fixture-${scene}`}
     />
   ) : (
-    <Zeenat key={instanceKey} {...common} preset={scene as BuiltInPresetName} />
+    <Zeenat
+      key={instanceKey}
+      {...common}
+      preset={scene as BuiltInPresetName}
+      {...(scene === "bunting" ? { flag } : {})}
+      {...([
+        "bunting",
+        "pakistan-defence-day",
+        "pakistan-independence-day",
+        "us-independence-day",
+      ].includes(scene)
+        ? { orientation }
+        : {})}
+    />
   );
 }
 
@@ -127,6 +145,10 @@ function App() {
           motion={motion}
           decorationRef={decorationRef}
           instanceKey={instanceKey}
+          flag={(query.get("flag") ?? "pakistan") as CountryFlag}
+          orientation={
+            (query.get("orientation") ?? "horizontal") as FlagOrientation
+          }
         />
       ) : null}
       <nav className="navbar">

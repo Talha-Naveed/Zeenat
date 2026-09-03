@@ -6,7 +6,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Zeenat preset="pakistan-defence-day" />
+        <Zeenat preset="bunting" flag="pakistan" orientation="vertical" />
         {children}
       </body>
     </html>

@@ -8,6 +8,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: "zeenat/flags",
+        replacement: fileURLToPath(
+          new URL("../src/flags/index.ts", import.meta.url),
+        ),
+      },
+      {
         find: "zeenat/effects",
         replacement: fileURLToPath(
           new URL("../src/effects/index.ts", import.meta.url),
