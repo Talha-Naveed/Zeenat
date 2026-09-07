@@ -112,7 +112,7 @@ export function bunting(options: BuntingOptions): ZeenatEffect {
         left: "0",
         width: "100%",
         height: `${height}px`,
-        top: position === "top" ? "0" : "auto",
+        top: position === "top" ? "var(--zeenat-navbar-bottom, 0px)" : "auto",
         bottom: position === "bottom" ? "0" : "auto",
         overflow: "visible",
       });

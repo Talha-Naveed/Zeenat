@@ -106,6 +106,35 @@ The same options work in vanilla:
 zeenat({ preset: "bunting", flag: "pakistan", orientation: "vertical" });
 ```
 
+### Keeping navigation clear
+
+Top bunting automatically starts below the visible bottom edge of common site
+headers and navbars. It stays below fixed/sticky navigation, moves up as a header
+scrolls or slides away, and returns below it when the header reappears. Flag opacity
+and the site's own styles stay unchanged; no space is inserted into the page.
+
+For a custom header, supply its CSS selector in React or vanilla:
+
+```tsx
+<Zeenat preset="bunting" flag="pakistan" navbar="#site-header" />
+```
+
+```js
+zeenat({ preset: "bunting", flag: "pakistan", navbar: "#site-header" });
+```
+
+`navbar="auto"` (the default) looks for `header`, `nav`, `[role="banner"]`, and
+`[role="navigation"]` elements near the viewport top. Detection considers wide,
+short header regions and excludes elements inside main content, sections, sidebars,
+footers, and dialogs. Use a selector for non-semantic markup, unusually tall or
+narrow headers, or layouts outside those assumptions. A selector may match several
+header regions; bunting clears the lowest visible edge. Missing or hidden matches
+use the viewport top, and late-mounted/replaced matches are detected automatically.
+
+Use `navbar={false}` in React or `navbar: false` in vanilla to keep the original
+viewport-top placement. This setting affects top bunting in all built-in and custom
+presets; bottom bunting and other effects retain their positions.
+
 | Preset                      | Composition                                                        | Reduced-motion result             |
 | --------------------------- | ------------------------------------------------------------------ | --------------------------------- |
 | `bunting`                   | Country flag bunting; requires `flag`                              | Static flag bunting               |
@@ -189,6 +218,7 @@ type ZeenatProps = {
   preset: BuiltInPresetName | ZeenatPreset;
   flag?: CountryFlag; // required for preset="bunting"; invalid on other presets
   orientation?: "horizontal" | "vertical"; // horizontal; flag-bunting presets only
+  navbar?: string | false; // "auto"; CSS selector override or false to opt out
   intensity?: "low" | "medium" | "high"; // medium
   duration?: number | "infinite"; // infinite
   zIndex?: number; // 1000

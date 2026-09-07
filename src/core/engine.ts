@@ -22,6 +22,7 @@ import { resolvePreset } from "../presets/registry";
 import { EffectRuntimeScope } from "./effect-scope";
 import { RuntimeScheduler } from "./scheduler";
 import { parseSchedule } from "./schedule";
+import { observeNavbar, validateNavbar } from "./navbar";
 
 const MAX_TIMER_DELAY = 2_147_483_647;
 
@@ -50,6 +51,8 @@ export class SceneEngine {
   private readonly baseSeed: number;
   private readonly duration: number | "infinite";
   private readonly zIndex: number;
+  private readonly navbar: string | false;
+  private navbarCleanup: CleanupFunction | undefined;
   private readonly respectReducedMotion: boolean;
   private readonly motionMode: ZeenatMotionMode;
   private readonly enabled: boolean;
@@ -93,6 +96,8 @@ export class SceneEngine {
       );
     }
     this.zIndex = options.zIndex ?? 1000;
+    this.navbar = options.navbar ?? "auto";
+    validateNavbar(this.document, this.navbar);
     if (!Number.isFinite(this.zIndex)) {
       throw new ZeenatError("zIndex must be a finite number.");
     }
@@ -402,6 +407,14 @@ export class SceneEngine {
       }
     });
 
+    if (
+      this.navbar !== false &&
+      this.effectScopes.some(
+        (scope) => scope.layer.dataset.zeenatEffect === "bunting",
+      )
+    ) {
+      this.navbarCleanup = observeNavbar(root, this.navbar);
+    }
     this.stateValue = "running";
     if (this.duration !== "infinite") {
       this.durationDeadline = Date.now() + this.duration;
@@ -430,6 +443,8 @@ export class SceneEngine {
   }
 
   private stopEffects(): void {
+    this.navbarCleanup?.();
+    this.navbarCleanup = undefined;
     if (this.durationTimer !== null) {
       this.view.clearTimeout(this.durationTimer);
       this.durationTimer = null;

@@ -59,6 +59,7 @@ function Decoration({
   instanceKey,
   flag,
   orientation,
+  navbar,
 }: {
   readonly scene: string;
   readonly motion: ZeenatMotionMode;
@@ -66,6 +67,7 @@ function Decoration({
   readonly instanceKey: number;
   readonly flag: CountryFlag;
   readonly orientation: FlagOrientation;
+  readonly navbar: string | false;
 }) {
   const common = {
     ref: decorationRef,
@@ -73,6 +75,7 @@ function Decoration({
     motion,
     seed: 12345,
     debug: true,
+    navbar,
   };
   const effect = effects[scene];
   return effect ? (
@@ -145,6 +148,11 @@ function App() {
           motion={motion}
           decorationRef={decorationRef}
           instanceKey={instanceKey}
+          navbar={
+            query.get("navbar") === "false"
+              ? false
+              : (query.get("navbar") ?? "auto")
+          }
           flag={(query.get("flag") ?? "pakistan") as CountryFlag}
           orientation={
             (query.get("orientation") ?? "horizontal") as FlagOrientation
