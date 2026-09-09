@@ -84,6 +84,8 @@ export interface ZeenatOptions {
   flag?: CountryFlag;
   /** Supported by bunting and the three national occasion presets. */
   orientation?: FlagOrientation;
+  /** Keep top bunting below visible navigation. Defaults to "auto"; accepts a CSS selector or false. */
+  navbar?: string | false;
   intensity?: ZeenatIntensity;
   duration?: ZeenatDuration;
   zIndex?: number;

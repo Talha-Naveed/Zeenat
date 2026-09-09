@@ -6,10 +6,14 @@
 npm run check
 ```
 
-The command verifies formatting, ESLint, strict TypeScript, 36 Vitest tests,
+The command verifies formatting, ESLint, strict TypeScript, Vitest tests,
 ESM/CJS/declarations/sourcemaps, every package export, SSR imports, preset schema,
 tree shaking, bundle budgets, the playground, three runnable examples, and
 functional Playwright coverage in Chromium, Firefox, and WebKit.
+
+Navbar regressions cover fixed/sticky and scrolling headers, partial visibility,
+CSS hide/reveal transitions, mobile resizing, selector overrides, late/replaced
+headers, opt-out, unchanged host layout, and observer cleanup.
 
 Install browsers once on a new machine:
 

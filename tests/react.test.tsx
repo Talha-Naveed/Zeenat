@@ -5,6 +5,41 @@ import { defineEffect, definePreset } from "../src/core/definitions";
 import { Zeenat, type ZeenatHandle } from "../src/react";
 
 describe("React adapter", () => {
+  it("updates the navbar selector and opt-out through the shared engine", () => {
+    const header = document.createElement("div");
+    header.id = "site-header";
+    document.body.append(header);
+    const rect = vi.spyOn(header, "getBoundingClientRect").mockReturnValue({
+      top: 0,
+      bottom: 80,
+      left: 0,
+      right: 1024,
+      width: 1024,
+      height: 80,
+    } as DOMRect);
+    const result = render(
+      <Zeenat
+        preset="bunting"
+        flag="pakistan"
+        navbar="#site-header"
+        motion="reduced"
+      />,
+    );
+    const root =
+      result.container.querySelector<HTMLElement>("[data-zeenat-root]")!;
+    expect(root.style.getPropertyValue("--zeenat-navbar-bottom")).toBe("80px");
+    result.rerender(
+      <Zeenat
+        preset="bunting"
+        flag="pakistan"
+        navbar={false}
+        motion="reduced"
+      />,
+    );
+    expect(root.style.getPropertyValue("--zeenat-navbar-bottom")).toBe("");
+    result.unmount();
+    rect.mockRestore();
+  });
   it("updates flag and orientation props through the shared engine", () => {
     const result = render(
       <Zeenat

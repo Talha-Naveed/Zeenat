@@ -2,6 +2,22 @@
 
 All notable changes follow [Semantic Versioning](https://semver.org/).
 
+## 0.3.1 - Unreleased
+
+### Fixed
+
+- Top bunting now sits below the visible bottom of common site headers and
+  navigation. It stays visible at the viewport top when navigation scrolls or
+  slides away, and follows it back on reveal.
+- Header resizing, responsive changes, late mounting, and replacement update
+  placement without rebuilding flags or changing the host page's layout/styles.
+
+### Added
+
+- React and vanilla `navbar` option: `"auto"` by default, a CSS selector for custom
+  layouts, or `false` to retain viewport-top placement. Bottom bunting and other
+  effects keep their existing positions.
+
 ## 0.3.0 - Unreleased
 
 ### Added

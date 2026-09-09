@@ -310,7 +310,19 @@ for (const orientation of ["horizontal", "vertical"]) {
         return {
           ratio: box.width / box.height,
           gap: Math.hypot(top.x - anchor.x, top.y - anchor.y),
-          bottom: box.bottom,
+          // Keep the size budget relative to the decoration band, whose origin
+          // now follows the navbar instead of always being the viewport top.
+          bottom:
+            box.bottom -
+            document
+              .querySelector("[data-zeenat-effect='bunting'] > svg")!
+              .getBoundingClientRect().top,
+          bandTop: document
+            .querySelector("[data-zeenat-effect='bunting'] > svg")!
+            .getBoundingClientRect().top,
+          navbarBottom: document
+            .querySelector(".navbar")!
+            .getBoundingClientRect().bottom,
           overflow: document.documentElement.scrollWidth - innerWidth,
         };
       });
@@ -320,6 +332,7 @@ for (const orientation of ["horizontal", "vertical"]) {
       );
       expect(geometry.gap).toBeLessThan(1.6);
       expect(geometry.bottom).toBeLessThan(width < 640 ? 78 : 112);
+      expect(geometry.bandTop).toBeCloseTo(geometry.navbarBottom, 0);
       expect(geometry.overflow).toBe(0);
       await page.locator("#host-button").click();
       await expect(page.locator("#click-count")).toHaveText("1");

@@ -40,11 +40,21 @@ independent loops. This keeps scheduling efficient while making rollback exact.
 
 Effects select `background`, `ambient`, `foreground`, or `top`. Each semantic band
 receives an internal z-index range; `order` resolves positions within a band. The
-root's public `zIndex` remains the only relationship with the host application.
+root's public `zIndex` controls how the scene stacks relative to the host application.
 
 The root and layers are fixed/absolute, clipped, pointer-inert, `aria-hidden`, and
 layout-contained. Zeenat changes no host class, stylesheet, custom property, or
 layout node.
+
+When a mounted scene contains bunting, the engine tracks visible host navigation
+and sets `--zeenat-navbar-bottom` only on its own root. Top bunting consumes that
+offset; the viewport and other effect layers keep their existing geometry.
+`navbar` defaults to conservative semantic detection, accepts a selector override,
+or disables tracking with `false`. Scroll and resize events and DOM/size observers
+batch measurements into an animation frame; finite header transitions are followed
+until completion, with no permanent idle loop. Geometry still updates during a
+manual animation pause, while hidden documents suspend queued follow-up work.
+Observers, listeners, and pending frames are released when effects stop or restart.
 
 ## Determinism and responsiveness
 

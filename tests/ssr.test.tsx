@@ -32,6 +32,7 @@ describe("SSR safety", () => {
         preset: "bunting",
         flag: "japan",
         orientation: "vertical",
+        navbar: "#site-header",
       }),
     );
     expect(html).toContain('data-zeenat-root="bunting"');
