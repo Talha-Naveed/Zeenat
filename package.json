@@ -1,6 +1,6 @@
 {
   "name": "zeenat",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Zeenat.js — Adorn the web with tasteful, occasion-aware decorations.",
   "license": "MIT",
   "homepage": "https://zeenat.xinuty.com",
@@ -20,6 +20,7 @@
   "files": [
     "dist",
     "docs",
+    "skills/zeenat",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "README.md",
@@ -173,9 +174,12 @@
     "typecheck": "tsc --noEmit",
     "validate:preset": "npm run build && node scripts/validate-presets.mjs",
     "validate:preset:built": "node scripts/validate-presets.mjs",
+    "skill:generate": "npm run build && node scripts/zeenat-skill.mjs --write",
+    "validate:skill": "npm run build && npm run validate:skill:built",
+    "validate:skill:built": "node scripts/zeenat-skill.mjs && vitest run --config vitest.skill.config.ts",
     "verify:package": "node scripts/verify-package.mjs",
     "verify:pack": "npm pack --dry-run",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run verify:package && npm run validate:preset:built && npm run test:tree-shaking && npm run check:size && npm run build:playground && npm run build:examples && npm run test:browser:built"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run verify:package && npm run validate:preset:built && npm run validate:skill:built && npm run test:tree-shaking && npm run check:size && npm run build:playground && npm run build:examples && npm run test:browser:built"
   },
   "peerDependencies": {
     "react": ">=18.2.0",

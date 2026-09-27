@@ -357,6 +357,22 @@ Zeenat targets modern evergreen browsers with ES2020, SVG, CSS transforms,
 Explorer is not supported. Functional coverage runs in Chromium, Firefox, and
 WebKit.
 
+## Agent Skill
+
+The portable [Zeenat Skill](skills/zeenat/SKILL.md) teaches coding agents to use
+existing presets/effects, integrate React/Next.js/vanilla scenes, and preserve
+scheduling, accessibility, navigation, and cleanup behavior. Copy the complete
+`skills/zeenat` folder into your agent's supported skill directory. The folder is
+included in the npm package; installing Zeenat alone does not activate a Skill in
+your agent. No MCP server or credentials are required.
+
+It includes progressive references, checked examples, and generated factory
+signatures and discovery metadata. Maintainers should run `npm run skill:generate`
+after API changes and `npm run validate:skill` before shipping. See
+[Skill validation](skills/zeenat/references/validation.md) for what these checks cover.
+The catalog is discovery data, not a JSON scene schema: presets contain functions.
+The existing TypeScript contracts and preset validators remain authoritative.
+
 ## Development
 
 ```bash
