@@ -2,6 +2,15 @@
 
 All notable changes follow [Semantic Versioning](https://semver.org/).
 
+## 0.3.2 - Unreleased
+
+### Added
+
+- Packaged Agent Skill with React, Next.js, and vanilla examples, effect/API
+  references, scheduling guidance, and accessibility and lifecycle guardrails.
+- Generated discovery metadata and factory signatures, with drift checks,
+  public-package example validation, and lifecycle smoke tests.
+
 ## 0.3.1 - Unreleased
 
 ### Fixed

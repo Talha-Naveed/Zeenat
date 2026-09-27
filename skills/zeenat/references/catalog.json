@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "library": "zeenat",
+  "libraryVersion": "0.3.2",
+  "description": "Discovery metadata, not a serialized scene or configuration schema. Bunting metadata uses the example factory options shown.",
+  "presets": [
+    {
+      "id": "bunting",
+      "name": "Country flag bunting",
+      "description": "A responsive cord of country flags, with no additional effects.",
+      "tags": ["flag-bunting", "decoration"],
+      "occasion": "Any occasion",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/bunting",
+      "factories": ["createBuntingPreset"],
+      "exampleFactoryOptions": { "flag": "PK" },
+      "effectIds": ["bunting"]
+    },
+    {
+      "id": "autumn",
+      "name": "Autumn",
+      "description": "Slowly drifting leaves with restrained amber accents.",
+      "tags": ["season", "autumn", "leaves"],
+      "season": "autumn",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/autumn",
+      "factories": ["createAutumnPreset"],
+      "effectIds": ["falling-leaves", "sparkles"]
+    },
+    {
+      "id": "festive-lights",
+      "name": "Festive Lights",
+      "description": "Warm string lights, neutral lantern forms, and subtle gold accents.",
+      "tags": ["celebration", "lights", "lanterns"],
+      "occasion": "General celebration",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/festive-lights",
+      "factories": ["createFestiveLightsPreset"],
+      "effectIds": ["sparkles", "lanterns", "string-lights"]
+    },
+    {
+      "id": "pakistan-defence-day",
+      "name": "Pakistan Defence Day",
+      "description": "Pakistani flag bunting, subtle accents, and a right-to-left fighter-jet flyover.",
+      "tags": ["national-day", "pakistan", "bunting", "flyover"],
+      "region": "PK",
+      "occasion": "Defence Day",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/pakistan-defence-day",
+      "factories": ["createPakistanDefenceDayPreset"],
+      "effectIds": ["sparkles", "aircraft", "bunting"]
+    },
+    {
+      "id": "pakistan-independence-day",
+      "name": "Pakistan Independence Day",
+      "description": "Pakistani flag bunting with restrained green and white celebration accents.",
+      "tags": ["national-day", "pakistan", "independence-day", "flag-bunting"],
+      "region": "PK",
+      "occasion": "Independence Day",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/pakistan-independence-day",
+      "factories": ["createPakistanIndependenceDayPreset"],
+      "effectIds": ["sparkles", "fireworks", "bunting"]
+    },
+    {
+      "id": "spring",
+      "name": "Spring",
+      "description": "Soft drifting petals and fresh, low-density color accents.",
+      "tags": ["season", "spring", "petals"],
+      "season": "spring",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/spring",
+      "factories": ["createSpringPreset"],
+      "effectIds": ["petals", "sparkles"]
+    },
+    {
+      "id": "us-independence-day",
+      "name": "US Independence Day",
+      "description": "American flag bunting with star accents and modest fireworks.",
+      "tags": ["national-day", "united-states", "bunting", "fireworks"],
+      "region": "US",
+      "occasion": "Independence Day",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/us-independence-day",
+      "factories": ["createUsIndependenceDayPreset"],
+      "effectIds": ["sparkles", "fireworks", "bunting"]
+    },
+    {
+      "id": "winter",
+      "name": "Winter",
+      "description": "A quiet snowfall with cool accents and a warm line of lights.",
+      "tags": ["season", "winter", "snow", "lights"],
+      "season": "winter",
+      "author": "Zeenat.js contributors",
+      "importPath": "zeenat/presets/winter",
+      "factories": ["createWinterPreset"],
+      "effectIds": ["snow", "sparkles", "string-lights"]
+    }
+  ],
+  "effects": [
+    { "importPath": "zeenat/effects/aircraft", "factories": ["aircraft"] },
+    { "importPath": "zeenat/effects/bunting", "factories": ["bunting"] },
+    {
+      "importPath": "zeenat/effects/falling-leaves",
+      "factories": ["fallingLeaves"]
+    },
+    { "importPath": "zeenat/effects/fireworks", "factories": ["fireworks"] },
+    { "importPath": "zeenat/effects/lanterns", "factories": ["lanterns"] },
+    { "importPath": "zeenat/effects/petals", "factories": ["petals"] },
+    { "importPath": "zeenat/effects/snow", "factories": ["snow"] },
+    { "importPath": "zeenat/effects/sparkles", "factories": ["sparkles"] },
+    {
+      "importPath": "zeenat/effects/string-lights",
+      "factories": ["stringLights"]
+    }
+  ]
+}

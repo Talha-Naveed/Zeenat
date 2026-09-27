@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zeenat"
+  short_description: "Integrate tasteful Zeenat website decorations"
+  default_prompt: "Use $zeenat to add an appropriate existing Zeenat decoration to this website."
